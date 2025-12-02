@@ -12,7 +12,8 @@ function readFileToArray() {
 const inputArray = readFileToArray();
 
 
-let resultList = [];
+let resultListA = [];
+let resultListB = [];
 
 // For each element in inputArray
 for (let i = 0; i < inputArray.length; i++) {
@@ -33,22 +34,27 @@ for (let i = 0; i < inputArray.length; i++) {
 
     //for each element in the listRange
     for (let i = 0; i < listRange.length; i++) {
-        let numStr = listRange[i].toString();
 
-        if (numStr.length % 2 !== 0) {
-        console.log("Number of digits is odd, cannot split into two equal halves.");
-        continue;
-        }
+        // Solution to part Aaaaaa
+        let numStr = listRange[i].toString();
 
         let midIndex = Math.floor(numStr.length / 2);
         let firstHalf = numStr.slice(0, midIndex);
         let secondHalf = numStr.slice(midIndex);
 
-
         if (firstHalf == secondHalf) {
-            resultList.push(parseInt(numStr));
+            resultListA.push(parseInt(numStr));
+        }
+
+        // Solution to part B
+        const pattern = /^(.+?)\1+$/;
+        const match = numStr.match(pattern)
+
+        if (match) {
+            resultListB.push(parseInt(numStr));
         }
     }
 }
-console.log('Result for part A:' + ' ' + resultList);
-console.log('Sum for part A:' + ' ' + resultList.reduce((a, b) => a + b, 0));
+
+console.log('Sum for part A:' + ' ' + resultListA.reduce((a, b) => a + b, 0));
+console.log('Sum for part B:' + ' ' + resultListB.reduce((a, b) => a + b, 0));
