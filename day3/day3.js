@@ -39,11 +39,11 @@ for (let i = 0; i < inputArray.length; i++) {
     //find max number on one line
     let maxNumber = Math.max(...inputArray[i].split('').map(Number));
     let secondMaxNumber = findMaxNumberInSecondPart(maxNumber, inputArray[i]);
-    
+
     // if the maxNumber is not the last in line
     if (secondMaxNumber != null) {
         let finalLineNumber = maxNumber * 10 + secondMaxNumber;
-        
+
         SolutionA += finalLineNumber;
     }
 
@@ -60,3 +60,38 @@ for (let i = 0; i < inputArray.length; i++) {
 }
 
 console.log('Solution A: ' + SolutionA)
+
+
+// part B solution
+let solutionB = 0;
+
+function findNumber(listOfNumbers, remainingDigits) {
+    for (let i = 9; i >= 0; i--) {
+        for (let j = 0; j < listOfNumbers.length; j++) {
+            if (listOfNumbers[j] == i) {
+                let secondPart = listOfNumbers.substring(j + 1);
+                if (secondPart.length >= remainingDigits) {
+                    return [i, secondPart];
+                }
+                else {
+                    continue
+                }
+            }
+        }
+    }
+}
+
+for (let i = 0; i < inputArray.length; i++) {
+
+    let finalNumber = '';
+    let foundNumber = '';
+    let secondPart = inputArray[i];
+
+    for (let j = 11; j >= 0; j--) {
+        [foundNumber, secondPart] = findNumber(secondPart, j);
+        finalNumber += String(foundNumber);
+    }
+    solutionB += parseInt(finalNumber);
+}
+
+console.log('Solution B: ' + solutionB);
